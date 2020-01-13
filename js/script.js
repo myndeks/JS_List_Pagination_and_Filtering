@@ -14,7 +14,7 @@ const itemsPerPage = 10;
 
 
 // Creaging function which displays itemsPerPage (how many studens we want to display per page) in this case 10;
-function showPage(list, page) {
+const showPage = (list, page) => {
    let startIndexPage = (page * itemsPerPage) - itemsPerPage;
    let endIndexPage = page * itemsPerPage;
 
@@ -32,9 +32,9 @@ function showPage(list, page) {
 showPage(studentList, 1);
 
 // Create function which will display paginations link
-function appendPageLinks(list) {
+const appendPageLinks = (list) => {
    // Declare how many pages we will need to display
-   let = pagesNeed = list.length / itemsPerPage;
+   let = pagesNeed = Math.ceil(list.length / itemsPerPage);
 
    // Create div element and add class name of pagination
    const div = document.createElement('div');
@@ -49,7 +49,7 @@ function appendPageLinks(list) {
    div.appendChild(ul);
 
    //Loop thru pagesNeed and create and pagination links
-   for (let i = 1; i < pagesNeed; i++) {
+   for (let i = 1; i <= pagesNeed; i++) {
       const li = document.createElement('li');
       ul.appendChild(li);
       li.innerHTML = `<a href="#"> ${i} </a>`;
@@ -81,60 +81,71 @@ function appendPageLinks(list) {
 // Call Function
 appendPageLinks(studentList);
 
+
+// DOM ELEMENTS
+// Geting Element Page header
+const headerDiv = document.querySelector('.page-header');
+
+// Creating and append new div elemenet
+const searchDIV = document.createElement('div');
+searchDIV.classList.add('student-search');
+headerDiv.appendChild(searchDIV);
+
+// Creating and append input element
+const searchInput = document.createElement('input');
+searchInput.placeholder = 'Search for students...';
+searchDIV.appendChild(searchInput);
+
+// Createing butotn
+const searchButton = document.createElement('button');
+searchButton.textContent = 'Search';
+searchDIV.appendChild(searchButton);
+
+// Creating Allert Message No when no users found
+const page = document.querySelector('.page');
+const p = document.createElement('p');
+p.style.display = 'none';
+const studetClass = document.querySelector('.student-list');
+p.textContent = `There is no stundents found`;
+page.insertBefore(p,studetClass);
+
 // Create search box function
-function searchBox() {
-
-   // Geting Element Page header
-   const headerDiv = document.querySelector('.page-header');
-
-   // Creating and append new div elemenet
-   const searchDIV = document.createElement('div');
-   searchDIV.classList.add('student-search');
-   headerDiv.appendChild(searchDIV);
-
-   // Creating and append input element
-   const searchInput = document.createElement('input');
-   searchInput.placeholder = 'Search for students...';
-   searchDIV.appendChild(searchInput);
-
-   // Createing butotn
-   const searchButton = document.createElement('button');
-   searchButton.textContent = 'Search';
-   searchDIV.appendChild(searchButton);
+const searchBox = () => {
 
    // Createa an array 
    let searchMatch = [];
 
-      searchInput.addEventListener('keyup', (e) => {
+   // Clear an array 
+   searchMatch = [];
 
-      // Clear an array 
-      searchMatch = [];
-
-      // Get pagination elements
-      let div = document.getElementsByClassName("pagination")[0]; 
+   // Get pagination elements
+   let div = document.getElementsByClassName("pagination")[0]; 
       
-      // Remove all pagination buttons
-      if(div) { 
-         div.remove();
-      };
+   // Remove all pagination buttons
+   if(div) { 
+      div.remove();
+   };
 
-      // Loop thru student list and if there is maching studens push them into an array, and studens which is not maching
-      // search results do not display on the page.
+// Loop thru student list and if there is maching studens push them into an array, and studens which is not maching
+// search results do not display on the page.
       for(let k = 0; k < studentList.length; k++){
          let text = searchInput.value;
+         studentList[k].style.display = 'none';
          if (studentList[k].innerText.toUpperCase().includes(text.toUpperCase())) {
             searchMatch.push(studentList[k]);
+         }
+         if (searchMatch.length === 0) {
+            p.style.display = '';
          } else {
-            studentList[k].style.display = 'none';
-            console.log("No users found");
+            p.style.display = 'none';
          }
       }
-      
       showPage(searchMatch, 1);
       appendPageLinks(searchMatch);
-      });
 }
 
-
-// Call Search box function
-searchBox();
+// Create add event listener to act when users type someting in the search box
+searchInput.addEventListener('keyup', (e) => {
+   // Call search function
+   searchBox();
+});
