@@ -105,9 +105,9 @@ searchDIV.appendChild(searchButton);
 const page = document.querySelector('.page');
 const p = document.createElement('p');
 p.style.display = 'none';
-const studetClass = document.querySelector('.student-list');
+const studentUL = document.querySelector('.student-list');
 p.textContent = `There is no stundents found`;
-page.insertBefore(p,studetClass);
+page.insertBefore(p,studentUL);
 
 // Create search box function
 const searchBox = () => {
