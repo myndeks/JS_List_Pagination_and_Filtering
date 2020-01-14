@@ -71,7 +71,7 @@ const appendPageLinks = (list) => {
          };
             event.target.classList.add('active');
             let pageNum = event.target.textContent;
-            showPage(list, pageNum);
+            showPage(studentList, pageNum);
       };
    });
 
