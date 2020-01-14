@@ -1,3 +1,3 @@
 # List-Pagination-and-Filtering-Unit2
-# Happy to learn from teamtreehouse.com
-# It was very difficult but when i reached results T was really happy.
+I am going for an “Exceeds Expectations” grade. 
+Added search input with function. Also displayed message if no students found.
