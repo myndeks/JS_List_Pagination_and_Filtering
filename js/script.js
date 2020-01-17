@@ -65,7 +65,7 @@ const appendPageLinks = (list) => {
 
       let links = document.getElementsByTagName('A');
 
-      if(event.target.tagName = 'A'){
+      if(event.target.tagName === 'A'){
          for(let j = 0; j < links.length; j++){
             links[j].classList.remove('active');
          };
@@ -106,7 +106,7 @@ const page = document.querySelector('.page');
 const p = document.createElement('p');
 p.style.display = 'none';
 const studentUL = document.querySelector('.student-list');
-p.textContent = `There is no stundents found`;
+p.textContent = `No students found`;
 page.insertBefore(p,studentUL);
 
 // Create search box function
